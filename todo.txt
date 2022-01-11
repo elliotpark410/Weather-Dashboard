@@ -1,7 +1,7 @@
 Create git repository DONE
 Clone to local machine DONE
 Create live page in Github DONE
-Submit Github repo to Bootcamp Spot 
+Submit Github repo to Bootcamp Spot DONE
 Do 06-Server Side APIs Activities
 Do 06-Server Side APIs Code Drill 
 Read README.md 

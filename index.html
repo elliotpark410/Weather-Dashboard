@@ -10,24 +10,71 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
     <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
     <div class="container-fluid">
+
         <div class="row navbar navbar-dark bg-dark">
             <div class="col-12 text-center">
                 <h1>Weather Dashboard</h1>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-3 bg-light py-3 border" id="search">
+                <h3>Search for a City</h3>
+                <form id="search-form" class="mb-2">
+                <input id="search-input" class="form-input col-9" type="text">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+
+                <ul class="city-history py-2 my-3" id="city-list">
+                    <li>test</li>
+                    <li>test2</li>
+                </ul> 
+            </div>
+
+
+            <div class="col-8 bg-light m-3 border" id="weather-today">
+                <h2 class="pt-3 pb-1" id="city-information">City test</h2>
+                <p class="px-3 py-2" id="temperature">temperature test</p>
+                <p class="px-3 py-2" id="humidity">humidity test</p>
+                <p class="px-3 py-2" id="wind-speed">wind speed test</p>
+                <p class="px-3 py-2" data-state="none" id="uv-index">uv index test</p>
+            </div> 
+
+        </div>
+
+        
+        <div row>
+            <div class="col-9 bg-dark"></div>
+        </div>
+
+   
+
+        
+
+
+
+
+
+        
       
 
     <!-- Add CDN links for jquery, bootstrap, and moment-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/c44c0358b1.js" crossorigin="anonymous"></script>
+
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 
     <script src="script.js"></script>
