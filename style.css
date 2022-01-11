@@ -7,14 +7,18 @@ li {
     font-size: 24px;
 }
 
-
 #search {
-    position: relative; 
-    height: 100vh;
-}
+    position: relative;
+    height: 90vh;
+} 
 
 
 #weather-today {
     position: relative;
     height: 40vh;
-}
+} 
+
+#five-day-forecast {
+    position: relative;
+    height: 40vh;
+} 
