@@ -9,16 +9,16 @@ li {
 
 #search {
     position: relative;
-    height: 90vh;
+    height: 80vh;
 } 
 
 
 #weather-today {
     position: relative;
-    height: 40vh;
+    height: 35vh;
 } 
 
 #five-day-forecast {
     position: relative;
-    height: 40vh;
+    height: 35vh;
 } 
