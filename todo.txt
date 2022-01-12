@@ -50,5 +50,5 @@ function weatherToday(city)
 -create function for 5 day forecast
 -fetch 5 day forecast api URL in openweather map
 -create a for loop to include city information
--create a function to save the search history of a city and it creates a list item
+-create a function to save the search history of a city and it creates a list item and save / retrieve it from local storage so that it displays the city weather data when I click it
 
