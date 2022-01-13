@@ -44,7 +44,6 @@ function weatherToday(openWeatherURL) {
 
 
         var cityName = openWeatherData.name;         
-        console.log(cityName);
         $("#city-name").text(cityName);
 
         
@@ -52,6 +51,7 @@ function weatherToday(openWeatherURL) {
         var iconURL = `https://openweathermap.org/img/w/${iconLocation}.png`;
         var cityIcon = $(`<img src="${iconURL}" alt="${openWeatherData.weather[0].description}"/>`)
         $("#city-name").append(cityIcon);
+
 
         var cityWeather = $(`
             <p>Temperature: ${openWeatherData.main.temp} °F</p>
@@ -61,14 +61,50 @@ function weatherToday(openWeatherURL) {
         $("#weather-today").append(cityWeather);
 
 
-
-
-
+        
+        var latitude = openWeatherData.coord.lat;
+        var longitude = openWeatherData.coord.lon;
+        var UVIndexURL = `https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=${openWeatherAPIkey}`;
+         // runs another function
+        UVIndexToday(UVIndexURL);
+    
 
     });
-
-
-
- 
-
 }
+
+
+function   UVIndexToday(UVIndexURL) {
+    fetch(UVIndexURL)
+    .then(function (openWeatherUVResponse) {
+        console.log(openWeatherUVResponse);
+        return openWeatherUVResponse.json();
+
+    }) .then (function(openWeatherUVData) {
+        console.log(openWeatherUVData);
+
+
+    var UVIndex = openWeatherUVData.value;
+            var UVIndexParagraph = $(`
+                <p>UV Index: 
+                    <span id="UVIndexColor" class="px-2 py-2 rounded">${UVIndex}</span>
+                </p>
+            `);
+
+            $("#weather-today").append(UVIndexParagraph);
+
+
+
+
+
+            
+
+    fiveDayForecast(latitude, longitude);
+
+
+
+})
+}
+
+
+// function fiveDayForecast(latitude, longitude) {
+//     }
