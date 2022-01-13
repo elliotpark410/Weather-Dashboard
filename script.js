@@ -61,13 +61,14 @@ function weatherToday(openWeatherURL) {
         $("#weather-today").append(cityWeather);
 
 
-        
+
         var latitude = openWeatherData.coord.lat;
         var longitude = openWeatherData.coord.lon;
         var UVIndexURL = `https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=${openWeatherAPIkey}`;
          // runs another function
         UVIndexToday(UVIndexURL);
-    
+
+        fiveDayForecast(latitude, longitude);
 
     });
 }
@@ -84,6 +85,7 @@ function   UVIndexToday(UVIndexURL) {
 
 
     var UVIndex = openWeatherUVData.value;
+    console.log(UVIndex);
             var UVIndexParagraph = $(`
                 <p>UV Index: 
                     <span id="UVIndexColor" class="px-2 py-2 rounded">${UVIndex}</span>
@@ -93,12 +95,22 @@ function   UVIndexToday(UVIndexURL) {
             $("#weather-today").append(UVIndexParagraph);
 
 
-
+    if (UVIndex >= 0 && UVIndex <= 2) {
+                $("#uvIndexColor").css("background-color", "#green").css("color", "white");
+            } else if (UVIndex >= 3 && UVIndex <= 5) {
+                $("#uvIndexColor").css("background-color", "#yellow");
+            } else if (UVIndex >= 6 && UVIndex <= 7) {
+                $("#uvIndexColor").css("background-color", "#orange");
+            } else if (UVIndex >= 8 && UVIndex <= 10) {
+                $("#uvIndexColor").css("background-color", "#red").css("color", "white");
+            } else {
+                $("#uvIndexColor").css("background-color", "#purple").css("color", "white"); 
+            };  
 
 
             
 
-    fiveDayForecast(latitude, longitude);
+
 
 
 
@@ -106,5 +118,5 @@ function   UVIndexToday(UVIndexURL) {
 }
 
 
-// function fiveDayForecast(latitude, longitude) {
-//     }
+function fiveDayForecast(latitude, longitude) {
+    }
