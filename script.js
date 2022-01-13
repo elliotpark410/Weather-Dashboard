@@ -1,16 +1,17 @@
 var openWeatherAPIkey = "80da45c172168bca58bf9a25737c188f";
 
-
+// Create an event listener on click that retrieves user input (city name)
 $("#city-button").on("click", function(event) {
     event.preventDefault();
 
     var city = $("#city-input").val().trim();
-    console.log(city);
 
+    // Create a variable for openWeatherURL and use jQuery to enter variables like city (user input) and openweather API Key
     var openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${openWeatherAPIkey}`;
 
-    // runs another function
+    // Call weatherToday function with argument openWeatherURL
     weatherToday(openWeatherURL);
+ 
 
 
     // if (!searchHistoryList.includes(city)) {
@@ -25,13 +26,14 @@ $("#city-button").on("click", function(event) {
     // console.log(searchHistoryList);
 });
 
+// Create key press event listener function so user can either click button or press enter to run function
 $('#city-button').keypress(function(event){
     if(event.which == 13){  // 13 is the "Enter" key code
         $('#city-button').click(); //Triggers search button click event
     }
 });
 
-
+// Create a function to fetch specific data from openWeatherAPI like cityName, cityWeatherIcon, temperature, humidity, and windspeed
 function weatherToday(openWeatherURL) {
     fetch(openWeatherURL)
     .then(function (openWeatherResponse) {
@@ -42,15 +44,14 @@ function weatherToday(openWeatherURL) {
         console.log(openWeatherData);
 
 
-
         var cityName = openWeatherData.name;         
         $("#city-name").text(cityName);
 
         
         var iconLocation = openWeatherData.weather[0].icon;
         var iconURL = `https://openweathermap.org/img/w/${iconLocation}.png`;
-        var cityIcon = $(`<img src="${iconURL}" alt="${openWeatherData.weather[0].description}"/>`)
-        $("#city-name").append(cityIcon);
+        var cityWeatherIcon = $(`<img src="${iconURL}" alt="${openWeatherData.weather[0].description}"/>`)
+        $("#city-name").append(cityWeatherIcon);
 
 
         var cityWeather = $(`
@@ -61,20 +62,25 @@ function weatherToday(openWeatherURL) {
         $("#weather-today").append(cityWeather);
 
 
-
+        // Create variables for latitude and longitude because we will need them for the fiveDayForecast function
         var latitude = openWeatherData.coord.lat;
         var longitude = openWeatherData.coord.lon;
+
+        // Create a variable for UVIndexURL and use jQuery to enter variables like latitude and longitude
         var UVIndexURL = `https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=${openWeatherAPIkey}`;
-         // runs another function
+
+    
+        // Call UVIndexToday function with argument UVIndexURL
         UVIndexToday(UVIndexURL);
 
-        fiveDayForecast(latitude, longitude);
+     
 
     });
 }
 
 
-function   UVIndexToday(UVIndexURL) {
+// Create a function to fetch specific UV Index data 
+function UVIndexToday(UVIndexURL) {
     fetch(UVIndexURL)
     .then(function (openWeatherUVResponse) {
         console.log(openWeatherUVResponse);
@@ -86,37 +92,27 @@ function   UVIndexToday(UVIndexURL) {
 
     var UVIndex = openWeatherUVData.value;
     console.log(UVIndex);
-            var UVIndexParagraph = $(`
-                <p>UV Index: 
-                    <span id="UVIndexColor" class="px-2 py-2 rounded">${UVIndex}</span>
-                </p>
-            `);
+        var UVIndexParagraph = $(`
+            <p>UV Index: 
+                <span class="p-2 rounded">${UVIndex}</span>
+            </p>
+        `);
 
-            $("#weather-today").append(UVIndexParagraph);
+        $("#weather-today").append(UVIndexParagraph);
 
 
     if (UVIndex >= 0 && UVIndex <= 2) {
-                $("#uvIndexColor").css("background-color", "#green").css("color", "white");
-            } else if (UVIndex >= 3 && UVIndex <= 5) {
-                $("#uvIndexColor").css("background-color", "#yellow");
-            } else if (UVIndex >= 6 && UVIndex <= 7) {
-                $("#uvIndexColor").css("background-color", "#orange");
-            } else if (UVIndex >= 8 && UVIndex <= 10) {
-                $("#uvIndexColor").css("background-color", "#red").css("color", "white");
-            } else {
-                $("#uvIndexColor").css("background-color", "#purple").css("color", "white"); 
-            };  
+        $("span").attr("id", "uv-index-low")
+    } else if (UVIndex >= 3 && UVIndex <= 5) {
+        $("span").attr("id", "uv-index-moderate")
+    } else if (UVIndex >= 6 && UVIndex <= 7) {
+        $("span").attr("id", "uv-index-high")
+    } else if (UVIndex >= 8 && UVIndex <= 10) {
+        $("span").attr("id", "uv-index-very-high")
+    } else {
+        $("span").attr("id", "uv-index-not-available")
+    };  
 
-
-            
-
-
-
-
-
-})
+    })
 }
 
-
-function fiveDayForecast(latitude, longitude) {
-    }

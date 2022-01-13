@@ -1,3 +1,7 @@
+:root {
+    --span-font-color: black;
+}
+
 h1 {
     color: white;
 }
@@ -22,3 +26,29 @@ li {
     position: relative;
     height: 35vh;
 } 
+
+
+#uv-index-low {
+    color: var(--span-font-color);
+    background-color: green;
+}
+
+#uv-index-moderate {
+    color: var(--span-font-color);
+    background-color: yellow;
+}
+
+#uv-index-high {
+    color: var(--span-font-color);
+    background-color: orange;
+}
+
+#uv-index-very-high {
+    color: var(--span-font-color);
+    background-color: red;
+}
+
+#uv-index-not-available {
+    color: var(--span-font-color);
+    background-color: blueviolet;
+}
