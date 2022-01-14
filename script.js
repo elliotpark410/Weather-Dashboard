@@ -1,4 +1,5 @@
 var openWeatherAPIkey = "80da45c172168bca58bf9a25737c188f";
+var citySearchHistoryList = [];
 
 // Create an event listener on click that retrieves user input (city name)
 $("#city-button").on("click", function(event) {
@@ -11,6 +12,20 @@ $("#city-button").on("click", function(event) {
 
     // Call weatherToday function with argument openWeatherURL
     weatherToday(openWeatherURL);
+
+
+    // Create a search history list and append to ul tag in html (id="city-search-history-list")
+    if (!citySearchHistoryList.includes(city)) {
+        citySearchHistoryList.push(city);
+        var citySearchHistoryListItem = $(`
+            <li class="list-group-item">${city}</li>
+            `);
+        $("#city-search-history-list").append(citySearchHistoryListItem);
+    };
+    
+    // Store city search history list in local storage
+    localStorage.setItem("city", JSON.stringify(citySearchHistoryList));
+    console.log(citySearchHistoryList);
  
 });
 
@@ -35,9 +50,10 @@ function weatherToday(openWeatherURL) {
         var cityName = openWeatherData.name;         
         $("#city-name").text(cityName);
 
-        
-        var iconLocation = openWeatherData.weather[0].icon;
-        var iconURL = `https://openweathermap.org/img/w/${iconLocation}.png`;
+        var date = (moment().format('LL')); 
+        $("#city-date").append(date);
+
+        var iconURL = `https://openweathermap.org/img/w/${openWeatherData.weather[0].icon}.png`;
         var cityWeatherIcon = $(`<img src="${iconURL}" alt="${openWeatherData.weather[0].description}"/>`)
         $("#city-name").append(cityWeatherIcon);
 
