@@ -3,20 +3,18 @@ Create git repository DONE
 Clone to local machine DONE
 Create live page in Github DONE
 Submit Github repo to Bootcamp Spot DONE
-Do 06-Server Side APIs Activities
-Do 06-Server Side APIs Code Drill 
-Read README.md 
-Look at Student Resources 
-Create Pseudocode
-Beigin Coding 
+Read README.md DONE
+Look at Student Resources DONE
+Create Pseudocode DONE
+Beigin Coding DONE
 Create README 
-Review grading criteria 
+Review grading criteria DONE
 Make sure live page works 
 Submit to Bootcamp Spot 
 
 
 
-How to utilize the icons in the response from openweathermap
+Openweathermap how to get icons
 https://openweathermap.org/weather-conditions#How-to-get-icon-URL
 
 

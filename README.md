@@ -1,11 +1,6 @@
 # Weather-Dashboard
 
-
-OLD README.MD MUST UPDATE!
-
-
-The Work Day Scheduler is a simple calendar app for scheduling your work day. The calendar allows a user to save events for each hour of the day and color code past, present, or future hours. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
-
+The Weather Dashboard is a weather app that displays data by city. The weather app allows a user to enter a city and it will fetch data from the openweathermap API for dynamic weather results. This app will utilize a browser's local storage and feature dynamically updated HTML and CSS powered by jQuery.
 
 <br>
 
@@ -42,7 +37,7 @@ Here is a link to the Github repository
 
 ## Screenshots 
 
-<img src="Work Day Scheduler screenshot.png" title="Work Day Scheduler screenshot" width = 700px>
+<img src="Weather Dashboard screenshot.png" title="Weather Dashboard screenshot" width = 700px>
 
 <br>
 
@@ -56,28 +51,29 @@ Here is a link to the Github repository
 
 ## Code Snippets
 
-This code snippet shows how to display persisted data that is saved in local storage
+This code snippet shows how you can create an HTML content using jQuery and CSS Bootstrap
 
-* The each() function is like a for loop, but it's a shorter syntax with the help of jQuery. It will commit the function for each element with a specified class or id 
+* jQuery allows user to dynamically generate HTML code within JavaScript with $(`EnterHTMLContentHere`);
 
-* $(this) is self-referential and will refer to the function created above it
-
-* localStorage.getItem will retrieve the data that is already saved in local storage. I created a variable for localStorage.getItem and used it later as an argument to include savedDescription
-
-* Select elements in HTML page with Jquery $("element") and if an element is a sibling, you can use .siblings() method
+* Bootstrap CSS has pre-built cards with CSS styling that you can grab from their website
 
 
 ```
 
-function showSaved() {
-  $(".hour").each(function() {
-    var savedHour = $(this).text();
-    var savedDescription = localStorage.getItem(savedHour);
-    $(this).siblings(".description").val(savedDescription);
-  });
-}
-showSaved();
+var fiveDayForecastCard = $(`
+    <div class="pl-3">
+        <div class="card pl-3 pt-3 mb-3 bg-primary text-light" style="width: 12rem;>
+            <div class="card-body">
+                <h5>${dateFiveDayForecast}</h5>
+                <p>${iconURLFiveDayForecast}</p>
+                <p>Temperature: ${cityWeatherFiveDayForecast.temperature} °F</p>
+                <p>Humidity: ${cityWeatherFiveDayForecast.humidity}\%</p>
+            </div>
+        </div>
+    <div>
+`);
 
+$("#five-day-forecast").append(fiveDayForecastCard);
 
 ```
 
@@ -91,14 +87,19 @@ showSaved();
 
 ## Learning Points
 
-* How to use jQuery API, Bootstrap API, fontawesome API, and Google Fonts API
-<br>
-
-* How to display multiple elements with local storage 
+* How to use jQuery API, and Bootstrap API
 
 <br>
 
-* How to use $(this) within the function to be self-referential of the function it is in 
+* How to fetch and parse data from OpenWeather API
+
+<br>
+
+* How to create dynamically generated HTML content in JavaScript with jQuery
+
+<br>
+
+* How to persist data with local storage
 
 <br>
 
