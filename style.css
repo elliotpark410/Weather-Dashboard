@@ -9,6 +9,7 @@ h1 {
 li {
     list-style-type: none;
     font-size: 24px;
+    padding-bottom: 10px;
 }
 
 #search {
@@ -25,7 +26,12 @@ li {
 #five-day-forecast {
     position: relative;
     height: 35vh;
+    display: inline-block;
 } 
+
+.card-body {
+    display: inline-block;
+}
 
 
 #uv-index-low {
