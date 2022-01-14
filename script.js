@@ -1,5 +1,28 @@
 var openWeatherAPIkey = "80da45c172168bca58bf9a25737c188f";
 var citySearchHistoryList = [];
+var openWeatherURL;
+
+// Create a function to retrieve data from local storage and run the weatherToday function
+$(document).ready(function() {
+    var savedCitySearchHistoryArray = JSON.parse(localStorage.getItem("city"));
+
+    if (savedCitySearchHistoryArray) {
+        for (let i = 0; i < savedCitySearchHistoryArray.length; i++) {
+            var citySearchHistoryListItem = savedCitySearchHistoryArray[i];
+            citySearchHistoryList.push(citySearchHistoryListItem);
+            var searchedCities = $(`
+                <li class="list-group-item">${citySearchHistoryListItem}</li>
+                `);
+                searchedCities.addClass("text-primary");
+            $("#city-search-history-list").append(searchedCities);
+        }
+
+        var lastCitySearchedIndex = savedCitySearchHistoryArray.length - 1;
+        var lastCitySearched = savedCitySearchHistoryArray[lastCitySearchedIndex];
+        var openWeatherURLForLastCitySearched = `https://api.openweathermap.org/data/2.5/weather?q=${lastCitySearched}&units=imperial&appid=${openWeatherAPIkey}`;
+        weatherToday(openWeatherURLForLastCitySearched);
+    }
+});
 
 // Create an event listener on click that retrieves user input (city name)
 $("#city-button").on("click", function(event) {
@@ -8,7 +31,7 @@ $("#city-button").on("click", function(event) {
     var city = $("#city-input").val().trim();
 
     // Create a variable for openWeatherURL and use jQuery to enter variables like city (user input) and openweather API Key
-    var openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${openWeatherAPIkey}`;
+    openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${openWeatherAPIkey}`;
 
     // Call weatherToday function with argument openWeatherURL
     weatherToday(openWeatherURL);
@@ -35,6 +58,9 @@ $('#city-button').keypress(function(event){
         $('#city-button').click(); //Triggers search button click event
     }
 });
+
+
+
 
 // Create a function to fetch specific data from openWeatherAPI like cityName, cityWeatherIcon, temperature, humidity, and windspeed
 function weatherToday(openWeatherURL) {
@@ -79,9 +105,18 @@ function weatherToday(openWeatherURL) {
 
         // Call fiveDayForecast function with arguments latitude and longitude
         fiveDayForecast(latitude, longitude);
-     
 
+
+
+
+    
     });
+
+
+    $("#city-name").empty();
+    $("#city-date").empty();
+    $("#weather-today").empty();
+ 
 }
 
 
@@ -156,7 +191,7 @@ function fiveDayForecast(latitude, longitude) {
                         <div class="card-body">
                             <h5>${dateFiveDayForecast}</h5>
                             <p>${iconURLFiveDayForecast}</p>
-                            <p>Temp: ${cityWeatherFiveDayForecast.temperature} °F</p>
+                            <p>Temperature: ${cityWeatherFiveDayForecast.temperature} °F</p>
                             <p>Humidity: ${cityWeatherFiveDayForecast.humidity}\%</p>
                         </div>
                     </div>
@@ -170,3 +205,13 @@ function fiveDayForecast(latitude, longitude) {
     })
 
 }
+
+
+
+
+
+$(document).on("click", ".list-group-item", function() {
+    var savedCitySearchHistoryListItem = $(this).text();
+    openWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${savedCitySearchHistoryListItem}&units=imperial&appid=${openWeatherAPIkey}`;
+    weatherToday(openWeatherURL)
+});
