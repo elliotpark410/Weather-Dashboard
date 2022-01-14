@@ -12,18 +12,6 @@ $("#city-button").on("click", function(event) {
     // Call weatherToday function with argument openWeatherURL
     weatherToday(openWeatherURL);
  
-
-
-    // if (!searchHistoryList.includes(city)) {
-    //     searchHistoryList.push(city);
-    //     var searchedCity = $(`
-    //         <li class="list-group-item">${city}</li>
-    //         `);
-    //     $("#searchHistory").append(searchedCity);
-    // };
-    
-    // localStorage.setItem("city", JSON.stringify(searchHistoryList));
-    // console.log(searchHistoryList);
 });
 
 // Create key press event listener function so user can either click button or press enter to run function
@@ -57,7 +45,7 @@ function weatherToday(openWeatherURL) {
         var cityWeather = $(`
             <p>Temperature: ${openWeatherData.main.temp} °F</p>
             <p>Humidity: ${openWeatherData.main.humidity}\%</p>
-            <p>Wind Speed: ${openWeatherData.wind.speed} MPH</p>
+            <p>Wind Speed: ${openWeatherData.wind.speed} mph</p>
         `)
         $("#weather-today").append(cityWeather);
 
@@ -73,6 +61,8 @@ function weatherToday(openWeatherURL) {
         // Call UVIndexToday function with argument UVIndexURL
         UVIndexToday(UVIndexURL);
 
+        // Call fiveDayForecast function with arguments latitude and longitude
+        fiveDayForecast(latitude, longitude);
      
 
     });
@@ -114,5 +104,53 @@ function UVIndexToday(UVIndexURL) {
     };  
 
     })
+
+
 }
 
+// Create a fiveDayForecast function to fetch specific data from openWeatherAPI like date, icon, temperature and humidity
+function fiveDayForecast(latitude, longitude) {
+
+    var openWeatherFiveDayForecastURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=imperial&exclude=current,minutely,hourly,alerts&appid=${openWeatherAPIkey}`;
+
+    fetch(openWeatherFiveDayForecastURL)
+    .then(function (openWeatherFiveDayResponse) {
+        console.log(openWeatherFiveDayResponse);
+        return openWeatherFiveDayResponse.json();
+
+    }) .then (function(openWeatherFiveDayData) {
+        console.log(openWeatherFiveDayData);
+        $("#five-day-forecast").empty();
+
+        for (let i=1; i < 6; i++) {
+            var cityWeatherFiveDayForecast = {
+                date: openWeatherFiveDayData.daily[i].dt,
+                icon: openWeatherFiveDayData.daily[i].weather[0].icon,
+                temperature: openWeatherFiveDayData.daily[i].temp.day,
+                humidity: openWeatherFiveDayData.daily[i].humidity
+            }
+
+            var dateFiveDayForecast = moment.unix(cityWeatherFiveDayForecast.date).format("MM/DD/YYYY");
+
+            var iconURLFiveDayForecast = `<img src="https://openweathermap.org/img/w/${cityWeatherFiveDayForecast.icon}.png" alt="${openWeatherFiveDayData.daily[i].weather[0].main}" />`;
+
+            var fiveDayForecastCard = $(`
+                <div class="pl-3">
+                    <div class="card pl-3 pt-3 mb-3 bg-primary text-light" style="width: 12rem;>
+                        <div class="card-body">
+                            <h5>${dateFiveDayForecast}</h5>
+                            <p>${iconURLFiveDayForecast}</p>
+                            <p>Temp: ${cityWeatherFiveDayForecast.temperature} °F</p>
+                            <p>Humidity: ${cityWeatherFiveDayForecast.humidity}\%</p>
+                        </div>
+                    </div>
+                <div>
+            `);
+
+            $("#five-day-forecast").append(fiveDayForecastCard);
+
+        }
+
+    })
+
+}
