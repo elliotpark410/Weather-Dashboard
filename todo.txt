@@ -7,10 +7,10 @@ Read README.md DONE
 Look at Student Resources DONE
 Create Pseudocode DONE
 Beigin Coding DONE
-Create README 
+Create README DONE
 Review grading criteria DONE
-Make sure live page works 
-Submit to Bootcamp Spot 
+Make sure live page works DONE
+Submit to Bootcamp Spot DONE
 
 
 
